@@ -1,6 +1,6 @@
-module fgsfds.video.all;
+module fgsfds.Render.Window; 
 /**
- * Imports all the files in fgsfds.video
+ * TODO: Open a window and be able to configure that window.
  *
  * License:
  *  This file is part of fgsfds.
@@ -19,5 +19,4 @@ module fgsfds.video.all;
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see http://www.gnu.org/licenses/
  */
-
-import fgsfds.video.Window;
+ 
