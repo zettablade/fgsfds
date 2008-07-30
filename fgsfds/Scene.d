@@ -27,6 +27,9 @@ import derelict.sdl.sdl;
 import derelict.opengl.gl;
 import derelict.opengl.glu;
 
+import tango.stdc.stringz;
+
+
 final class Scene
 {
 	// This is the constructor, and is charged with loading the engine.
@@ -63,20 +66,20 @@ final class Scene
 		}
 	}
 	
-	void setup(char[] title)
+	static void setup(char[] title)
 	{
 		SDL_WM_SetCaption( toStringz(title), null );
 		running = true;
 	}
 	
-	bool isRunning()
+	static bool isRunning()
 	{
 		return running;
 	}
 	
-	private bool running;
+	private static bool running = false;
 	
-	void processEvents()
+	static void processEvents()
 	{
 		SDL_Event event;
 		// get all events
@@ -93,12 +96,17 @@ final class Scene
 				case SDL_VIDEORESIZE:
 					// the window has been resized so we need to set up our viewport and projection according to 
 					// the new size
-					windowResize(event.resize.w, event.resize.h);
+					Render.sceneSize(event.resize.w, event.resize.h);
 					break;
 				default:
 					break;
 			}
 		}
+	}
+
+	private static char[] getSDLError()
+	{
+		return fromStringz(SDL_GetError());
 	}
 }
 
@@ -118,11 +126,11 @@ debug (scene)
 	unittest
 	{
 		Scene.setup("My Game");
-		Render.setup(640,480,bpp32,DOUBLEBUFFER);
+		Render.setup(640,480,BitDepth.bpp32);
 		
-		while(isRunning)
+		while(Scene.isRunning)
 		{
-			processEvents();
+			Scene.processEvents();
 		}
 	}
 } 

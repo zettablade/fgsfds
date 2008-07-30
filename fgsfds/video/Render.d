@@ -24,7 +24,7 @@ import derelict.sdl.sdl;
 import derelict.opengl.gl;
 import derelict.opengl.glu;
 
-enum ScreenFlags : uint
+enum : uint
 {
 	FULLSCREEN = SDL_FULLSCREEN,
 	RESIZABLE = SDL_RESIZABLE,
@@ -58,7 +58,7 @@ final class Render
 			DerelictSDL.load();
 	}
 
-	static void setup(int width, int height, BitDepth bitPerPixel = 32, ScreenFlags flags)
+	static void setup(int width, int height, BitDepth bitPerPixel, uint flags = 0)
 	{
 		// Set our opengl attributes
 		ushort[] bpp = bppToArray(bitPerPixel);
@@ -77,9 +77,11 @@ final class Render
 		}
 		
 		sceneSize(width, height);
+
+		active = true;
 	}
 
-	private static void sceneSize(int width, int height)
+	static void sceneSize(int width, int height)
 	{
 		if(height <= 0)
 			height = 1;
@@ -112,7 +114,7 @@ final class Render
 		}
 	}
 
-	private static bool activeWindow = flase;
+	private static bool active = false;
 }
 
 class RenderException : Exception
