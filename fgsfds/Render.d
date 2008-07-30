@@ -1,4 +1,4 @@
-module fgsfds.video.Render;
+module fgsfds.Render;
 /**
  * TODO: Open a window and be able to configure that window.
  *
@@ -124,13 +124,4 @@ public:
     {
         super(msg);
     }
-}
-
-debug (render_window)
-{
-	unittest
-	{
-		//Render.setup(640,480,bpp32,DOUBLEBUFFER|FULLSCREEN);
-		SDL_Delay( 2000 );
-	}
 }

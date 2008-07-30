@@ -21,7 +21,7 @@ module fgsfds.Scene;
  *  along with this program.  If not, see http://www.gnu.org/licenses/
  */
 
-import fgsfds.video.Render;
+import fgsfds.Render;
 
 import derelict.sdl.sdl;
 import derelict.opengl.gl;
