@@ -1,4 +1,4 @@
-module fgsfds.Render;
+module fgsfds.Video;
 /**
  * TODO: Open a window and be able to configure that window.
  *
@@ -41,7 +41,7 @@ enum BitDepth : ushort
 }
 
 
-final class Render
+final class Video
 {
 	static this()
 	{
@@ -73,7 +73,7 @@ final class Render
 		// Create our window with SDL
 		if(SDL_SetVideoMode( width, height, bitPerPixel, SDL_OPENGL|flags) is null)
 		{
-			throw new RenderException("Failed to set SDL video mode.");
+			throw new VideoException("Failed to set SDL video mode.");
 		}
 		
 		sceneSize(width, height);
@@ -110,14 +110,14 @@ final class Render
 			case 32:
 				return new ushort[8, 8, 8];
 			default:
-				throw new RenderException("Invalid bits per pixel.");
+				throw new VideoException("Invalid bits per pixel.");
 		}
 	}
 
 	private static bool active = false;
 }
 
-class RenderException : Exception
+class VideoException : Exception
 {
 public:
     this(char[] msg)
