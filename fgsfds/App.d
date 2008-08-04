@@ -22,6 +22,8 @@ module fgsfds.App;
  */
 
 import fgsfds.Video;
+import fgsfds.Mouse;
+import tango.io.Stdout;
 
 import derelict.sdl.sdl;
 import derelict.opengl.gl;
@@ -98,7 +100,7 @@ final class App
 				case SDL_VIDEORESIZE:
 					// the window has been resized so we need to set up our viewport and projection according to 
 					// the new size
-					Render.sceneSize(event.resize.w, event.resize.h);
+					Video.sceneSize(event.resize.w, event.resize.h);
 					break;
 				default:
 					break;
@@ -123,16 +125,17 @@ public:
 }
 
 
-debug (app)
+unittest
 {
-	unittest
+	App.setup("My Game");
+	Video.setup(640,480,BitDepth.bpp32);
+
+	Mouse.show(Toggle.Disable);
+	
+	while(App.isRunning)
 	{
-		App.setup("My Game");
-		Render.setup(640,480,BitDepth.bpp32);
-		
-		while(App.isRunning)
-		{
-			App.processEvents();
-		}
+		App.processEvents();
+		Mouse.update();
+		Stdout.formatln("X: {}\nY:{}", Mouse.x, Mouse.y);
 	}
-} 
+}

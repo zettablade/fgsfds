@@ -29,12 +29,39 @@ static this()
 		DerelictSDL.load();
 }
 
+enum Toggle { Query, Disable, Enable }
+enum Button : ubyte { Right, Left, Middle }
+
 final class Mouse
 {
 	static this() {}
-	static void update() {}
+	
+	static void update()
+	{
+		buttonStates = SDL_GetMouseState(&mouseX, &mouseY);
+	}
 
+	static Toggle show(Toggle state)
+	{
+		if(state != Toggle.Query)
+		{
+			if(state == Toggle.Enable)
+				SDL_ShowCursor(SDL_ENABLE);
+			else if(state == Toggle.Disable)
+				SDL_ShowCursor(SDL_DISABLE);
 
-	int x, y;
-	bool right, left;
+			showState = state;
+		}
+		
+		return showState;
+	};
+
+	static int x() { return mouseX; }
+	static int y() { return mouseY; }
+
+// 	static bool pressed(
+
+	static int mouseX, mouseY;
+	static ubyte buttonStates;
+	static Toggle showState;
 }
