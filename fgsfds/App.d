@@ -1,4 +1,4 @@
-module fgsfds.Scene;
+module fgsfds.App;
 /**
  * Core file for "the endless project".
  * Automagically initializes and deinitializes the engine for you.
@@ -29,30 +29,32 @@ import derelict.opengl.glu;
 
 import tango.stdc.stringz;
 
+static this()
+{
 
-final class Scene
+	// Should probably make this into a function =/
+	// Make sure GL loaded
+	if(!DerelictGL.loaded())
+		DerelictGL.load();
+	
+	// Make sure GLU is loaded
+	if(!DerelictGLU.loaded())
+		DerelictGLU.load();
+	
+	// Make sure SDL is loaded
+	if(!DerelictSDL.loaded())
+		DerelictSDL.load();
+}
+
+final class App
 {
 	// This is the constructor, and is charged with loading the engine.
 	static this()
 	{
-
-		// Should probably make this into a function =/
-		// Make sure GL loaded
-		if(!DerelictGL.loaded())
-			DerelictGL.load();
-		
-		// Make sure GLU is loaded
-		if(!DerelictGLU.loaded())
-			DerelictGLU.load();
-		
-		// Make sure SDL is loaded
-		if(!DerelictSDL.loaded())
-			DerelictSDL.load();
-	
 		//Start SDL
 		if(SDL_Init( SDL_INIT_EVERYTHING ) != 0) 
 		{
-			throw new SceneException("Failed to init SDL: " ~ getSDLError());
+			throw new AppException("Failed to init SDL: " ~ getSDLError());
 		}
 	}
 	
@@ -111,7 +113,7 @@ final class Scene
 }
 
 
-class SceneException : Exception
+class AppException : Exception
 {
 public:
     this(char[] msg)
@@ -121,16 +123,16 @@ public:
 }
 
 
-debug (scene)
+debug (app)
 {
 	unittest
 	{
-		Scene.setup("My Game");
+		App.setup("My Game");
 		Render.setup(640,480,BitDepth.bpp32);
 		
-		while(Scene.isRunning)
+		while(App.isRunning)
 		{
-			Scene.processEvents();
+			App.processEvents();
 		}
 	}
 } 

@@ -24,6 +24,21 @@ import derelict.sdl.sdl;
 import derelict.opengl.gl;
 import derelict.opengl.glu;
 
+static this()
+{
+	// Make sure GL loaded
+	if(!DerelictGL.loaded())
+		DerelictGL.load();
+	
+	// Make sure GLU is loaded
+	if(!DerelictGLU.loaded())
+		DerelictGLU.load();
+	
+	// Make sure SDL is loaded
+	if(!DerelictSDL.loaded())
+		DerelictSDL.load();
+}
+
 enum : uint
 {
 	FULLSCREEN = SDL_FULLSCREEN,
@@ -43,21 +58,6 @@ enum BitDepth : ushort
 
 final class Video
 {
-	static this()
-	{
-		// Make sure GL loaded
-		if(!DerelictGL.loaded())
-			DerelictGL.load();
-		
-		// Make sure GLU is loaded
-		if(!DerelictGLU.loaded())
-			DerelictGLU.load();
-		
-		// Make sure SDL is loaded
-		if(!DerelictSDL.loaded())
-			DerelictSDL.load();
-	}
-
 	static void setup(int width, int height, BitDepth bitPerPixel, uint flags = 0)
 	{
 		// Set our opengl attributes
